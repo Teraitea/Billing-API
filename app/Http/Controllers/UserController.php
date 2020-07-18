@@ -68,4 +68,20 @@ class UserController extends Controller
         $result = json_decode((string) $response->getBody(), true);
         return response()->json($result, $this->successStatus);
     }
+    
+    public function details() { 
+        $user = Auth::user(); 
+        return response()->json($user, $this->successStatus); 
+    } 
+
+    public function logout(Request $request) {
+        $request->user()->token()->revoke();
+        return response()->json([
+            'message' => 'Successfully logged out'
+        ]);
+    }
+
+    public function unauthorized() { 
+        return response()->json("unauthorized", 401); 
+    } 
 }
