@@ -44,6 +44,8 @@ class UserController extends Controller
         $password = $request->password;
         $input = $request->all(); 
         $input['password'] = bcrypt($input['password']); 
+        $input['last_name'] = strtoupper($input['last_name']); 
+        $input['first_name'] = ucfirst($input['first_name']); 
         $user = User::create($input); 
         $oClient = OClient::where('password_client', 1)->first();
         return $this->getTokenAndRefreshToken($oClient, $user->email, $password);
@@ -52,7 +54,7 @@ class UserController extends Controller
     public function getTokenAndRefreshToken(OClient $oClient, $email, $password) { 
         $oClient = OClient::where('password_client', 1)->first();
         $http = new Client;
-        $response = $http->request('POST', 'http://mylemp-nginx/oauth/token', [
+        $response = $http->request('POST', 'http://billing-api.test/oauth/token', [
             'form_params' => [
                 'grant_type' => 'password',
                 'client_id' => $oClient->id,
