@@ -13,6 +13,13 @@ use Symfony\Bridge\PsrHttpMessage\Factory\PsrHttpFactory;
 
 class CheckClientCredentials
 {
+    
+    /**
+     * The Resource Server instance.
+     *
+     * @var \League\OAuth2\Server\ResourceServer
+     */
+    protected $server;
     /**
      * Handle an incoming request.
      *

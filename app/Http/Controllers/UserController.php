@@ -68,7 +68,7 @@ class UserController extends Controller
         $result = json_decode((string) $response->getBody(), true);
         return response()->json($result, $this->successStatus);
     }
-    
+
     public function details() { 
         $user = Auth::user(); 
         return response()->json($user, $this->successStatus); 
@@ -84,4 +84,8 @@ class UserController extends Controller
     public function unauthorized() { 
         return response()->json("unauthorized", 401); 
     } 
+
+    public function index() {
+        return User::all();
+    }
 }
